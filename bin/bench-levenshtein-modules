@@ -40,4 +40,4 @@ for my $args (
 
 Sample result:
 
-# COMMAND: perl -Ilib bench-levenshtein-modules
+# COMMAND: perl -Ilib bin/bench-levenshtein-modules

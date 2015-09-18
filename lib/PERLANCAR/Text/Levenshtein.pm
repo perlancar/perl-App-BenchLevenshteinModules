@@ -53,3 +53,8 @@ sub editdist {
 =head1 DESCRIPTION
 
 This routine is copied code from L<App::perlbrew>.
+
+
+=head1 FUNCTIONS
+
+=head2 editdist($str1, $str2) => int

@@ -26,4 +26,4 @@ Benchmark::Command::run(100, $bench_arg);
 
 Sample result:
 
-# COMMAND: perl -Ilib bench-startup-levenshtein-modules
+# COMMAND: perl -Ilib bin/bench-startup-levenshtein-modules
