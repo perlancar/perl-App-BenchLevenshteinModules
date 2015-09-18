@@ -1,0 +1,43 @@
+#!perl
+
+use 5.010;
+use strict;
+use warnings;
+use FindBin '$Bin';
+use lib "$Bin/../lib";
+
+use App::BenchLevenshteinModules qw(@modules);
+use Benchmark::Dumb qw(cmpthese);
+use Module::Load;
+
+no strict 'refs';
+for my $args (
+    ["a","aa"],
+    ["foo","bar"],
+    ["program","porgram"],
+    ["transporter", "transporteur"],
+) {
+    say "$args->[0],$args->[1]:";
+    my $prev_res;
+    my $bench_arg = {};
+    for my $mod (@modules) {
+        load $mod->[0];
+        my $res = &{"$mod->[0]::$mod->[1]"}(@$args);
+        say "  result with $mod->[0]: $res";
+        if (defined($prev_res) && $res != $prev_res) { warn "Different result" }
+        $prev_res = $res;
+        $bench_arg->{$mod->[0]} = eval "sub { $mod->[0]::$mod->[1]('$args->[0]','$args->[1]') }";
+        die if $@;
+    }
+    cmpthese(0, $bench_arg);
+    say "";
+}
+
+# ABSTRACT: Benchmark various modules calculating the Levenshtein edit distance
+# PODNAME:
+
+=head1 DESCRIPTION
+
+Sample result:
+
+# COMMAND: perl -Ilib bench-levenshtein-modules
