@@ -15,10 +15,10 @@ our @modules = (
     # [module name, routine name]
     ["PERLANCAR::Text::Levenshtein", "editdist"],
     ["Text::Levenshtein", "fastdistance"],
+    ["Text::Levenshtein::XS", "distance"],
     ["Text::LevenshteinXS", "distance"],
 );
 
-1;
 # ABSTRACT: Benchmark various modules calculating the Levenshtein edit distance
 
 =head1 DESCRIPTION
