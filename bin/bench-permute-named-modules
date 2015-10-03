@@ -1,0 +1,32 @@
+#!perl
+
+use 5.010;
+use strict;
+use warnings;
+use FindBin '$Bin';
+use lib "$Bin/../lib";
+
+use App::BenchPermuteNamedModules qw(@participants @datasets);
+use Benchmark::Dumb qw(cmpthese);
+use Module::Load;
+
+no strict 'refs';
+for my $ds (@datasets) {
+    say "$ds->{name}:";
+    my $bench_arg = {};
+    for my $p (@participants) {
+        load $p->{module};
+        $bench_arg->{$p->{module}} = sub { $p->{code}->(@{ $ds->{args} }) };
+    }
+    cmpthese(0, $bench_arg);
+    say "";
+}
+
+# ABSTRACT: Benchmark various modules doing permutation of multiple-valued key-value pairs
+# PODNAME:
+
+=head1 DESCRIPTION
+
+Sample result:
+
+# COMMAND: perl -Ilib bin/bench-permute-named-modules
