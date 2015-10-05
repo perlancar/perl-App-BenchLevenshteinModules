@@ -1,10 +1,5 @@
-Revision history for App-BenchLevenshteinModules
+Revision history for App-BenchPermuteNamedModules
 
-0.02    2015-09-22 (PERLANCAR)
+0.01    2015-10-03 (PERLANCAR)
 
-	- Split PERLANCAR::Text::Levenshtein to its own dist.
-
-
-0.01    2015-09-18 (PERLANCAR)
-
-        - First release.
+	- First release.

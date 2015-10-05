@@ -1,0 +1,30 @@
+#!perl
+
+use 5.010;
+use strict;
+use warnings;
+use FindBin '$Bin';
+use lib "$Bin/../lib";
+
+use App::BenchPermuteNamedModules qw(@participants);
+use Benchmark::Command;
+
+my $bench_arg = {};
+
+$bench_arg->{perl} = [$^X, "-Ilib", "-e1"];
+
+for my $p (@participants) {
+    my $mod = $p->{module};
+    $bench_arg->{"perl+$mod"} = [$^X, "-Ilib", "-M$mod", "-e1"];
+}
+
+Benchmark::Command::run(0, $bench_arg);
+
+# ABSTRACT: Benchmark startup of modules doing permutation of multiple-valued key-value pairs
+# PODNAME:
+
+=head1 DESCRIPTION
+
+Sample result:
+
+# COMMAND: perl -Ilib bin/bench-startup-permute-named-modules
